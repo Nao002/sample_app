@@ -1,0 +1,28 @@
+<h1>新規投稿</h1>
+<!--doからendまでが範囲|f|はdoからendまでの間で使える-->
+<!--method, HTTPメソッドを指定 メソッドとはコントロールクラスに実装されたdef xxx~endまでの形式のコード,url どのURLへフォームの情報を送信するか-->
+<!--errorsは、モデルにバリデーションをかけたときに、発生したエラーの内容を確認できる.バリデーションとはmethodモデルの属性に対して、特定のルールを定義して、値が正しいかどうかを検証する仕組みです。-->
+<% if @list.errors.any? %>
+  <%= @list.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @list.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @list, url: '/lists', method: :post do |f| %>
+
+  <h4>タイトル</h4>
+  <%= f.text_field :title %>
+  
+  <h4>本文</h4>
+  <%= f.text_area :body %>
+  
+  <h4>画像</h4>
+  
+  <%= f.file_field :image, accept: "image/*" %>
+  <!--file_fieldファイルの投稿をするためのフィールド、画像ファイル以外のすべてのファイル音声ファイルや動画ファイルも投稿できる-->
+  <%= f.submit '投稿' %>
+  
+<% end %>

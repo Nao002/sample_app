@@ -1,0 +1,33 @@
+<div class="list-wrap">
+ <% @lists.each do |list| %>
+  <div class="list-box">
+   <% if list.image.attached? %>
+    <%= image_tag list.image, size: "200×200" %>
+   <% else %>
+    <%= image_tag 'no_image', size: "200×200" %>
+   <% end %>
+   <div class="list-comment">
+    <span class="list-body"><%= list.body %></span>
+    <span class="list-title"><%=link_to list.title, list_path(list.id) %></span>
+   </div>
+  </div>
+<% end %>
+ 
+</div>
+
+<h1>投稿一覧</h1>
+
+<% @lists.each do |list| %>
+ <p>タイトル</p>
+ <!-- link_to 表示させるテキスト、リンク先URL [,オプション]　　link_toはHTML上でaタグに変化している-->
+ <!-- link_to メソッドは、HTMLの要素を出力するメソッド。リンク先URLは、/lists/:idのidに該当する部分を指定する。-->
+ <span>
+   <%= link_to list.title, list_path(list.id) %>
+ </span>
+ 
+ <p>画像</p>
+  <!-- listに紐づいているimageをimage_tagにわたすことで画像を表示することができる。またオプションとしてサイズを設定している-->
+  <!-- list.image.attached?はlist.imageに対して、.attached?というimageが存在するかを確認するmethodを呼び出しいている。-->
+ <%= image_tag list.image, size: "200×200" %>
+ 
+<% end %>
